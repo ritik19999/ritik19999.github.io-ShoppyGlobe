@@ -1,0 +1,24 @@
+.containerHome {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  margin: 10%;
+
+  letter-spacing: 1px;
+}
+
+.containerHome ::before {
+
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 800px;
+  background: url(https://static.wixstatic.com/media/2e2a49_db29dbd54f594c648ec3807b118e6718~mv2.jpg/v1/fill/w_1351,h_803,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/2e2a49_db29dbd54f594c648ec3807b118e6718~mv2.jpg) no-repeat center center/cover;
+  opacity: 0.9;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
