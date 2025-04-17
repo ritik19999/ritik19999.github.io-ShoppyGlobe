@@ -3,14 +3,14 @@ import useFetch from "../utils/useFetch";
 import { useEffect } from "react";
 import ProductDetailsItems from "./ProductDetailItems";
 import { useDispatch } from "react-redux";
-import { addItem, removeItem } from "../utils/cartSlice";
+import { addToCart, removeItem } from "../utils/cartSlice";
 
 function ProductDetails({ handleCart }) {
   const { data, error, loading } = useFetch("https://dummyjson.com/products");
 
   const dispatch = useDispatch();
   function handleCart(item) {
-    dispatch(addItem(item));
+    dispatch(addToCart(item));
   }
   useEffect(() => {
     if (data) {

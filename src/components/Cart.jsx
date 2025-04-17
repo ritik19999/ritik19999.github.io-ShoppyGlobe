@@ -5,14 +5,22 @@ import { Link } from "react-router-dom";
 function Cart() {
   //getting store data
   const addCart = useSelector((store) => store.cart.items);
-  const [cart, setCart] = useState(addCart);
 
-  useEffect(() => setCart(addCart), [addCart]);
+  //getting total quantity and price
+  const getTotal = () => {
+    let totalQuantity = 0;
+    let totalPrice = 0;
+    addCart.forEach((item) => {
+      totalQuantity += item.quantity;
+      totalPrice += item.price * item.quantity;
+    });
+    return { totalPrice, totalQuantity };
+  };
 
   return (
     <>
-      {cart.length != 0 ? (
-        cart.map((items) => <CartItem item={items} key={items.id} />)
+      {addCart.length != 0 ? (
+        addCart.map((items) => <CartItem item={items} key={items.id} />)
       ) : (
         <div className="flex justify-center items-center flex-col">
           <p className="text-xl pt-11">No Items Added Yet..</p>
@@ -27,7 +35,7 @@ function Cart() {
       <div>
         <div className="flex flex-col md:flex-row items-center md:items-center justify-between lg:px-6 pb-6 border-b border-gray-200 max-lg:max-w-lg max-lg:mx-auto">
           <h5 className="text-gray-900 font-manrope font-semibold text-2xl leading-9 w-full max-md:text-center max-md:mb-4">
-            Subtotal
+            Subtotal: {getTotal().totalQuantity} items
           </h5>
 
           <div className="flex items-center justify-between gap-5 ">
@@ -35,7 +43,7 @@ function Cart() {
               Promo Code?
             </button>
             <h6 className="font-manrope font-bold text-3xl lead-10 text-[#634141]">
-              ${cart.price}
+              ${Math.round(getTotal().totalPrice * 100) / 100}
             </h6>
           </div>
         </div>

@@ -11,7 +11,7 @@ function useFetch(url) {
     try{  const response=await fetch(url);
       const result=await response.json();
       //adding quantity field
-      const newData=result.products.map(item=>({...item,quantity:0}))
+      const newData=result.products.map(item=>({...item}))
       setData(newData);
     }
     catch(error){

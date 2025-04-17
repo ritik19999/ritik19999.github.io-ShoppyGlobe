@@ -1,18 +1,9 @@
 import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { addItem, removeItem, clearCart } from "../utils/cartSlice";
+import { incrementQuantity, decrementQuantity } from "../utils/cartSlice";
 
 function CartItem({ item }) {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(1);
-  function handleIncrease() {
-    dispatch(addItem(item));
-    // setQuantity(quantity + 1);
-  }
-  function handleDecrease() {
-    dispatch(removeItem(item));
-    // setQuantity(quantity - 1);
-  }
+
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6 mx-6">
@@ -37,16 +28,10 @@ function CartItem({ item }) {
           </div>
         </div>
         <div className="flex items-center flex-col min-[550px]:flex-row w-full max-xl:max-w-xl max-xl:mx-auto gap-2">
-          <h6 className="font-manrope font-bold text-2xl leading-9 text-black w-full max-w-[176px] text-center">
-            $0.00{" "}
-            <span className="text-sm text-gray-300 ml-3 lg:hidden whitespace-nowrap">
-              (Delivery Charge)
-            </span>
-          </h6>
           <div className="flex items-center w-full mx-auto justify-center">
             <button
               className="group rounded-l-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50"
-              onClick={() => handleDecrease(item)}
+              onClick={() => dispatch(decrementQuantity(item.id))}
             >
               <svg
                 className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"
@@ -81,11 +66,12 @@ function CartItem({ item }) {
             <input
               type="text"
               className="border-y border-gray-200 outline-none text-gray-900 font-semibold text-lg w-full max-w-[118px] min-w-[80px] placeholder:text-gray-900 py-[15px] text-center bg-transparent"
-              placeholder={quantity}
+              value={item.quantity}
+              readOnly
             />
             <button
               className="group rounded-r-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50"
-              onClick={() => handleIncrease(item)}
+              onClick={() => dispatch(incrementQuantity(item.id))}
             >
               <svg
                 className="stroke-gray-900 transition-all duration-500 group-hover:stroke-black"

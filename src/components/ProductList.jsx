@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import useFetch from "../utils/useFetch";
+import { useSelector } from "react-redux";
 import ProductItem from "./ProductItem";
 
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { addItem, removeItem } from "../utils/cartSlice";
+import { addToCart } from "../utils/cartSlice";
+
 function ProductList() {
   const dispatch = useDispatch();
   function handleCart(item) {
-    dispatch(addItem(item));
+    dispatch(addToCart(item));
   }
   const [filteredProduct, setFilteredProduct] = useState([]);
   const [search, setSearch] = useState();
   const { data, error, loading } = useFetch("https://dummyjson.com/products");
 
   //Using useEffect custom hook to fetch data from an api
+
+  // inside the component...
+  const cartItems = useSelector((state) => state.cart.items);
+  console.log("🛒 Cart Items in Redux:", cartItems);
   useEffect(() => {
     if (data) {
       setFilteredProduct(data);

@@ -17,7 +17,11 @@ function ProductItem({ productDetails, handleCart }) {
                   ☆ {productDetails.rating}
                 </span>
               </div>
-              <h4>{productDetails.title}</h4>
+              <h4>
+                {productDetails.title.length > 25
+                  ? `${productDetails.title.slice(0, 25)}...`
+                  : productDetails.title}
+              </h4>
             </div>
           </div>
         </Link>
